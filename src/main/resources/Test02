@@ -1,0 +1,37 @@
+--创建部门表
+CREATE TABLE department(
+	id int(11) PRIMARY KEY,
+	dep_name VARCHAR(20),
+	dep_describe VARCHAR(50)
+)
+
+INSERT INTO `department` VALUES (1, '技术部', '提供技术');
+INSERT INTO `department` VALUES (2, '行政部', '负责公司行政');
+
+
+--创建员工表
+CREATE TABLE staff(
+	id int(11) AUTO_INCREMENT PRIMARY KEY,
+	sta_name VARCHAR(20) NOT NULL,
+	sta_sex VARCHAR(20) NOT NULL,
+	sta_age INT(10) NOT NULL,
+	phone CHAR(11) NOT NULL,
+	post VARCHAR(225) NOT NULL,
+	dep_id INT(11) NOT NULL
+)
+
+INSERT INTO `staff` VALUES (1, '李四', '男', 23, '17613700813', '总监', 2);
+INSERT INTO `staff` VALUES (2, '张三', '男', 22, '15923456789', '助理', 1);
+INSERT INTO `staff` VALUES (3, '王五', '男', 20, '15178237898', '实习生', 1);
+
+--支持手机号数据脱敏
+SELECT CONCAT(LEFT(phone,3),'****',RIGHT(phone,4)) AS phone FROM staff
+
+--统计各个部门的员工人数
+SELECT department.`dep_name`,COUNT(*) from `staff` inner JOIN department ON department.id=`staff`.dep_id GROUP BY dep_id;
+
+--查询每个部门年龄最大的员工
+SELECT department.`dep_name`,MAX(sta_age),sta_name from `staff` inner JOIN department ON department.id=`staff`.dep_id GROUP BY dep_id;
+
+--手机号模糊查询
+SELECT * FROM staff WHERE phone LIKE '%176%'
