@@ -37,6 +37,8 @@ public class Test01 {
      * @return res
      */
     public static int[] result(int[] item){
+        int x[] = {1,2,3};
+
         int n = 100000;
         int[] res = new  int[n];
 
